@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script>
+        var count = 0;
+        
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.ajax({
+                    url:      "http://server/fd",
+                    dataType: 'jsonp',
+                    data:     JSON.stringify({
+                        var1: 2,
+                        var2: 3,
+                        msgvar:{
+                            message: "Hello from JS through .NET, buddy!",
+                            subvar2: 223,
+                        },
+                    }),
+                    cache:   false,
+                    success: function(json) {
+                        $("#div1").html("Success! Data: \"" + json.msgvar.message + "\", count = " + count);
+                        
+                        count += 1;
+                    },
+                    error: function() {
+                        $("#div1").html("Error. count = " + count);
+                        
+                        count += 1;
+                    },
+                });      
+            });
+        });
+    </script>
+    </head>
+    <body>
+    
+        <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+        <button>Get External Content</button>
+    
+    </body>
+</html>
